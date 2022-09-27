@@ -61,7 +61,7 @@ type Response struct {
 type Client4 struct {
 	URL        string       // The location of the server, for example  "http://localhost:8065"
 	APIURL     string       // The api location of the server, for example "http://localhost:8065/api/v4"
-	HTTPClient *http.Client // The http client
+	HTTPClient httpClient   // The http client
 	AuthToken  string
 	AuthType   string
 	HTTPHeader map[string]string // Headers to be copied over for each request
@@ -71,6 +71,10 @@ type Client4 struct {
 
 	// FalseString is the string value sent to the server for false boolean query parameters.
 	falseString string
+}
+
+type httpClient interface {
+	Do(*http.Request) (*http.Response, error)
 }
 
 // SetBoolString is a helper method for overriding how true and false query string parameters are
